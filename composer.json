@@ -1,0 +1,22 @@
+{
+    "name": "soratm/hexlet-psr-linter",
+    "description": "PHP linter, just for fun",
+    "require": {
+        "nikic/php-parser": "^2.1",
+        "php": ">=7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.4",
+        "squizlabs/php_codesniffer": "^2.6",
+        "satooshi/php-coveralls": "^1.0",
+        "codeclimate/php-test-reporter": "^0.3.2",
+        "mikey179/vfsStream": "^1.6"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Timur Malikin",
+            "email": "timur.malikin@gmail.com"
+        }
+    ]
+}
