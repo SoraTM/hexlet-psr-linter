@@ -1,4 +1,6 @@
 <?php
+namespace Linter;
+
 use function Linter\lint;
 
 class LintTest extends \PHPUnit_Framework_TestCase

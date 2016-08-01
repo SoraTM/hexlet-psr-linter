@@ -1,0 +1,14 @@
+language: php
+php:
+  - '7.0'
+
+install:
+    - composer self-update
+    - make install
+
+script:
+    - make test
+    - make lint
+
+after_success:
+  - travis_retry php vendor/bin/coveralls
