@@ -18,5 +18,11 @@
             "name": "Timur Malikin",
             "email": "timur.malikin@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "files": [
+            "src/Linter.php"
+        ]
+    },
+    "bin" : ["bin/linter"]
 }
