@@ -6,7 +6,7 @@ require_once(__DIR__ . '/../vendor/autoload.php');
 use function Linter\lint;
 
 try {
-    lint($argv[1]);
+    echo lint($argv[1]);
 } catch (\Exception $e) {
     echo  $e->getMessage() . PHP_EOL;
     exit(1);
