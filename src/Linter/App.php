@@ -15,7 +15,7 @@ function checkErrors($result)
     if (empty($result)) {
         return "Everithing OK!" . PHP_EOL;
     }
-    return(formatErrors($result));
+    return formatErrors($result);
 }
 
 function formatErrors($errors)
@@ -29,7 +29,6 @@ function formatErrors($errors)
     }, []);
     
     $count = sizeof($result) . " problems";
-    
     
     return implode(PHP_EOL, $result) . PHP_EOL . $count . PHP_EOL;
 }
