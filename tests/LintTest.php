@@ -33,8 +33,14 @@ class LintTest extends \PHPUnit_Framework_TestCase
     
     public function testCheckFunctionName()
     {
-        $this->assertEquals('Function name MUST be in camelCase', \Linter\checkFunctionName('NotCamelCase'));
-        $this->assertEquals('Function name MUST NOT include underscores', \Linter\checkFunctionName('with_under_scores'));
+        $this->assertEquals(
+            'Function name MUST be in camelCase',
+            \Linter\checkFunctionName('NotCamelCase')
+        );
+        $this->assertEquals(
+            'Function name MUST NOT include underscores',
+            \Linter\checkFunctionName('with_under_scores')
+        );
     }
     
     public function testCheckFunctionNames()
