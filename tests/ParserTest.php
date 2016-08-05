@@ -8,7 +8,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     private $fileInvalid;
     private $fileValidContent;
     private $fileInvalidContent;
-    private $functionsValid;
+    private $functionErrors;
     
     public function setUp()
     {
@@ -16,11 +16,28 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->fileInValid = __DIR__ . DIRECTORY_SEPARATOR . 'fixtures/InValid.php';
         $this->fileValidContent = File\getContent($this->fileValid);
         $this->fileInValidContent = File\getContent($this->fileInValid);
-        $this->functionsValid = ['testTest', 'testToTest'];
+        $this->functionErrors = [
+            [
+                'error:',
+                'Function name MUST NOT include underscores',
+                'test_test',
+            ],
+            [
+                'error:',
+                'Function name MUST NOT include underscores',
+                'test_test_2',
+            ],
+            [
+                'error:',
+                'Function name MUST be in camelCase',
+                'CamelCase',
+            ],
+        ];
     }
     
-    public function testGetFunctionNames()
+    public function testErrorsFunctionNames()
     {
-        $this->assertEquals($this->functionsValid, Parser\getFunctions($this->fileValidContent));
+        $this->assertEquals($this->functionErrors, Parser\checkCode($this->fileInValidContent));
+        $this->assertEquals([], Parser\checkCode($this->fileValidContent));
     }
 }

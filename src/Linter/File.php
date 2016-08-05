@@ -2,12 +2,14 @@
 
 namespace Linter\File;
 
+use \Linter\Exceptions\FileException;
+
 function getContent($file)
 {
     if (file_exists($file) && is_readable($file)) {
         return file_get_contents($file);
     } else {
-        throw new \Exception("Unable to read file or not exist");
+        throw new FileException("Unable to read file or not exist");
     }
 }
 

@@ -22,10 +22,11 @@
     "autoload": {
         "files": [
             "src/Linter/App.php",
-            "src/Linter/Linter.php",
+            "src/Linter/Rules/Functions.php",
             "src/Linter/File.php",
+            "src/Linter/Exceptions/FileException.php",
             "src/Linter/Parser/Parser.php",
-            "src/Linter/Parser/VisitorFunctionNames.php"            
+            "src/Linter/Parser/ParserVisitor.php"            
         ]
     },
     "bin" : ["bin/linter"]

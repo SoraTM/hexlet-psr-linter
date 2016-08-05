@@ -13,16 +13,16 @@ function getStructure($content)
         $stmts = $parser->parse($content);
         return $stmts;
     } catch (Error $e) {
-        echo 'Parse Error: ', $e->getMessage();
+        $e->getMessage();
     }
 }
 
-function getFunctions($content)
+function checkCode($content)
 {
     $structure = getStructure($content);
     $traverser = new NodeTraverser;
-    $visitor = new VisitorFunctionNames;
+    $visitor = new ParserVisitor;
     $traverser->addVisitor($visitor);
     $stmts = $traverser->traverse($structure);
-    return $visitor->getFunctions();
+    return $visitor->checkCode()->getErrors();
 }

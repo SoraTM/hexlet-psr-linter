@@ -1,6 +1,6 @@
 <?php
 
-namespace Linter;
+namespace Linter\Rules\Functions;
 
 function isFunctionNameWithUnderScores($string)
 {

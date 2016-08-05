@@ -2,18 +2,30 @@
 
 namespace Linter;
 
-function lint($file)
+function lint($destination)
 {
-    $content = File\getContent($file);
-    $functions = Parser\getFunctions($content);
-    $result = \Linter\checkFunctions($functions);
+    $files = [];
+    
+    if (is_dir($destination)) {
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($destination));
+        $files = new \RegexIterator($files, '/\.php$/');
+    } else {
+        $files[] = $destination;
+    }
+    
+    $result = array_reduce($files, function ($acc, $item) {
+        $content = File\getContent($item);
+        $result = Parser\checkCode($content);
+        return array_merge($acc, $result);
+    }, []);
+    
     return checkErrors($result);
 }
 
 function checkErrors($result)
 {
     if (empty($result)) {
-        return "Everithing OK!" . PHP_EOL;
+        return "Everything OK!" . PHP_EOL;
     }
     return formatErrors($result);
 }
