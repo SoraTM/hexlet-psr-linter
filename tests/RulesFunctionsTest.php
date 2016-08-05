@@ -45,6 +45,9 @@ class RulesFunctionsTest extends \PHPUnit_Framework_TestCase
     
     public function testCheckFunctionNames()
     {
-        $this->assertEquals($this->functionErrors, \Linter\Rules\Functions\checkFunctions(['NotCamelCase', 'with_under_scores']));
+        $this->assertEquals(
+            $this->functionErrors,
+            \Linter\Rules\Functions\checkFunctions(['NotCamelCase', 'with_under_scores'])
+        );
     }
 }
