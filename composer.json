@@ -10,7 +10,8 @@
         "squizlabs/php_codesniffer": "^2.6",
         "satooshi/php-coveralls": "^1.0",
         "codeclimate/php-test-reporter": "^0.3.2",
-        "mikey179/vfsStream": "^1.6"
+        "mikey179/vfsStream": "^1.6",
+        "psy/psysh": "@stable"
     },
     "license": "MIT",
     "authors": [
@@ -22,7 +23,9 @@
     "autoload": {
         "files": [
             "src/Linter/App.php",
+            "src/Linter/Rules/General.php",
             "src/Linter/Rules/Functions.php",
+            "src/Linter/Rules/Variables.php",
             "src/Linter/File.php",
             "src/Linter/Exceptions/FileException.php",
             "src/Linter/Parser/Parser.php",

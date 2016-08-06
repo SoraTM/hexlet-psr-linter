@@ -5,6 +5,7 @@ namespace Linter;
 function lint($destination)
 {
     $files = [];
+    $errors = [];
     
     if (is_dir($destination)) {
         $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($destination));
@@ -13,21 +14,21 @@ function lint($destination)
         $files[] = $destination;
     }
     
-    $result = array_reduce($files, function ($acc, $item) {
-        $content = File\getContent($item);
+    foreach ($files as $file) {
+        $content = File\getContent($file);
         $result = Parser\checkCode($content);
-        return array_merge($acc, $result);
-    }, []);
+        $errors = array_merge($errors, $result);
+    }
     
-    return checkErrors($result);
+    return checkErrors($errors);
 }
 
-function checkErrors($result)
+function checkErrors($errors)
 {
-    if (empty($result)) {
+    if (empty($errors)) {
         return "Everything OK!" . PHP_EOL;
     }
-    return formatErrors($result);
+    return formatErrors($errors);
 }
 
 function formatErrors($errors)

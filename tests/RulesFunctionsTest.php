@@ -5,7 +5,8 @@ namespace Linter;
 class RulesFunctionsTest extends \PHPUnit_Framework_TestCase
 {
     private $functionErrors = [];
-    private $classErrors = [];
+    private $functionNames = [];
+    private $functionRepeats = [];
     
     public function setUp()
     {
@@ -21,14 +22,16 @@ class RulesFunctionsTest extends \PHPUnit_Framework_TestCase
                 'with_under_scores',
             ],
         ];
-    }
-    
-    public function testValidFunctionName()
-    {
-        $this->assertTrue(\Linter\Rules\Functions\isFunctionNameCamelCase('camelCase'));
-        $this->assertFalse(\Linter\Rules\Functions\isFunctionNameCamelCase('NotCamelCase'));
-        $this->assertTrue(\Linter\Rules\Functions\isFunctionNameWithUnderScores('with_under_scores'));
-        $this->assertFalse(\Linter\Rules\Functions\isFunctionNameWithUnderScores('withunderscores'));
+        $this->functionNames = [
+            'functionName',
+            'functionName'
+        ];
+        $this->functionRepeats = [
+            [
+                'functionName',
+                'Multiple function declaration'
+            ]
+        ];
     }
     
     public function testCheckFunctionName()
@@ -43,11 +46,8 @@ class RulesFunctionsTest extends \PHPUnit_Framework_TestCase
         );
     }
     
-    public function testCheckFunctionNames()
+    public function testFunctionTestFunctionsRepeat()
     {
-        $this->assertEquals(
-            $this->functionErrors,
-            \Linter\Rules\Functions\checkFunctions(['NotCamelCase', 'with_under_scores'])
-        );
+        $this->assertEquals($this->functionRepeats, \Linter\Rules\Functions\checkFunctionsRepeat($this->functionNames));
     }
 }

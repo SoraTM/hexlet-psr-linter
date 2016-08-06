@@ -9,3 +9,5 @@ function testToTest()
 {
     return true;
 }
+
+$testVariable;

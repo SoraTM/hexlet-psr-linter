@@ -2,42 +2,28 @@
 
 namespace Linter\Rules\Functions;
 
-function isFunctionNameWithUnderScores($string)
-{
-    if (strstr($string, '_')) {
-        return true;
-    }
-    return false;
-}
-
-function isFunctionNameCamelCase($string)
-{
-    return \PHP_CodeSniffer::isCamelCaps($string);
-}
-
 function checkFunctionName($string)
 {
-    if (isFunctionNameWithUnderScores($string)) {
+    if (\Linter\Rules\General\isWithUnderScores($string)) {
         return 'Function name MUST NOT include underscores';
     }
-    if (!isFunctionNameCamelCase($string)) {
+    if (!\Linter\Rules\General\isCamelCase($string)) {
         return 'Function name MUST be in camelCase';
     }
 }
 
-function checkFunctions($functions)
+function checkFunctionsRepeat($arr)
 {
-    $result = array_reduce($functions, function ($acc, $item) {
-        $messageCheck = checkFunctionName($item);
-        if (isset($messageCheck)) {
-            $acc[] = [
-                'error:',
-                $messageCheck,
-                $item,
-            ];
-        }
-        return $acc;
-    }, []);
+    $counts = array_count_values($arr);
+    $doubles = array_filter($counts, function ($value) {
+        return $value > 1;
+    });
+    $result = array_map(function ($item) {
+        return [
+            $item,
+            'Multiple function declaration'
+        ];
+    }, array_keys($doubles));
     
     return $result;
 }
