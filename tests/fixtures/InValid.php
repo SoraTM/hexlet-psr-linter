@@ -21,7 +21,8 @@ function CamelCase()
     return true;
 }
 
-function correctFunction(){
+function correctFunction()
+{
     return true;
 }
 
