@@ -1,4 +1,5 @@
 <?php
+
 namespace Linter\Parser;
 
 use \PhpParser\Node;
@@ -10,57 +11,23 @@ class ParserVisitor extends \PhpParser\NodeVisitorAbstract
 {
     private $errors = [];
     private $functions = [];
-    
+    private $rules = [];
+
     public function leaveNode(Node $node)
     {
-        if ($node instanceof Node\Stmt\Function_) {
-            $this->functions[] = $node->name;
-        }
-        if ($node instanceof Node\Expr\Variable) {
-            $this->variables[] = $node->name;
-        }
-    }
-    
-    public function checkCode()
-    {
-        $this->checkNames();
-        $this->checkRepeats();
-        return $this;
-    }
-    
-    private function checkNames()
-    {
-        foreach ($this->functions as $value) {
-            $messageCheck = checkFunctionName($value);
-            if (isset($messageCheck)) {
-                $this->addError($messageCheck, $value);
-            }
-        }
-        foreach ($this->variables as $value) {
-            $messageCheck = checkVariableName($value);
-            if (isset($messageCheck)) {
-                $this->addError($messageCheck, $value);
+        foreach ($this->rules as $rule) {
+            $rule->cleanError();
+            $rule->apply($node);
+            $error = $rule->getError();
+            if (isset($error)) {
+                $this->errors[] = $error;
             }
         }
     }
     
-    private function checkRepeats()
+    public function addRules($rules)
     {
-        $functionRepeats = checkFunctionsRepeat($this->functions);
-        if (!empty($functionRepeats)) {
-            foreach ($functionRepeats as $value) {
-                $this->addError($value[1], $value[0]);
-            }
-        }
-    }
-    
-    public function addError($message, $nodeName)
-    {
-        $this->errors[] = [
-            'error:',
-            $message,
-            $nodeName,
-        ];
+        $this->rules = $rules;
     }
     
     public function getErrors()

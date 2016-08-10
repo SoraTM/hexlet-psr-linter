@@ -34,6 +34,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             ],
             [
                 'error:',
+                'Multiple function declaration',
+                'correctFunction'
+            ],
+            [
+                'error:',
                 'Variable name MUST NOT include underscores',
                 'test_variable',
             ],
@@ -41,11 +46,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 'error:',
                 'Variable name MUST be in camelCase',
                 'TestVariable',
-            ],
-            [
-                'error:',
-                'Multiple function declaration',
-                'correctFunction'
             ]
         ];
     }

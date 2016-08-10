@@ -21,16 +21,14 @@
         }
     ],
     "autoload": {
+        "psr-4": {
+            "Linter\\": "src/Linter"          
+        },
         "files": [
-            "src/Linter/App.php",
-            "src/Linter/Rules/General.php",
-            "src/Linter/Rules/Functions.php",
-            "src/Linter/Rules/Variables.php",
-            "src/Linter/File.php",
-            "src/Linter/Exceptions/FileException.php",
-            "src/Linter/Parser/Parser.php",
-            "src/Linter/Parser/ParserVisitor.php"            
-        ]
+         "src/Linter/App.php",
+         "src/Linter/File.php",
+         "src/Linter/Parser/Parser.php"
+       ]
     },
     "bin" : ["bin/linter"]
 }

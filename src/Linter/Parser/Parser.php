@@ -4,15 +4,26 @@ namespace Linter\Parser;
 
 use \PhpParser\ParserFactory;
 use \PhpParser\NodeTraverser;
+use Linter\Rules\VariablesNames;
+
+function initRules()
+{
+    return [
+        new \Linter\Rules\VariableName,
+        new \Linter\Rules\FunctionName,
+        new \Linter\Rules\FunctionRepeats,
+    ];
+}
 
 function checkCode($content)
 {
     $structure = getStructure($content);
     $traverser = new NodeTraverser;
     $visitor = new ParserVisitor;
+    $visitor->addRules(initRules());
     $traverser->addVisitor($visitor);
     $stmts = $traverser->traverse($structure);
-    return $visitor->checkCode()->getErrors();
+    return $visitor->getErrors();
 }
 
 function getStructure($content)
