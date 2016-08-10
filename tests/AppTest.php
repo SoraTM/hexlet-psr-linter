@@ -18,9 +18,9 @@ class AppTest extends \PHPUnit_Framework_TestCase
  error: Function name MUST NOT include underscores test_test
  error: Function name MUST NOT include underscores test_test_2
  error: Function name MUST be in camelCase CamelCase
+ error: Multiple function declaration correctFunction
  error: Variable name MUST NOT include underscores test_variable
  error: Variable name MUST be in camelCase TestVariable
- error: Multiple function declaration correctFunction
 6 problems
 
 EOT;
