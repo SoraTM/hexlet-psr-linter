@@ -19,10 +19,9 @@ function checkCode($content)
 {
     $structure = getStructure($content);
     $traverser = new NodeTraverser;
-    $visitor = new ParserVisitor;
-    $visitor->addRules(initRules());
+    $visitor = new ParserVisitor(initRules());
     $traverser->addVisitor($visitor);
-    $stmts = $traverser->traverse($structure);
+    $traverser->traverse($structure);
     return $visitor->getErrors();
 }
 

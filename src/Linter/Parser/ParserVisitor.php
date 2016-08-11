@@ -12,22 +12,20 @@ class ParserVisitor extends \PhpParser\NodeVisitorAbstract
     private $errors = [];
     private $functions = [];
     private $rules = [];
+    
+    public function __construct($rules)
+    {
+        $this->rules = $rules;
+    }
 
     public function leaveNode(Node $node)
     {
         foreach ($this->rules as $rule) {
-            $rule->cleanError();
-            $rule->apply($node);
-            $error = $rule->getError();
-            if (isset($error)) {
+            $error = $rule->apply($node)->getError();
+            if (!empty($error)) {
                 $this->errors[] = $error;
             }
         }
-    }
-    
-    public function addRules($rules)
-    {
-        $this->rules = $rules;
     }
     
     public function getErrors()

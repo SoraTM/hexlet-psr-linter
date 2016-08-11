@@ -10,12 +10,14 @@ class VariableName implements RuleInterface
     
     public function apply(Node $node)
     {
+        $this->cleanError();
         if ($node instanceof Node\Expr\Variable) {
             $message = $this->checkVariableName($node->name);
             if (isset($message)) {
                 $this->setError($message, $node->name);
             }
         }
+        return $this;
     }
     
     private function setError($message, $name)
