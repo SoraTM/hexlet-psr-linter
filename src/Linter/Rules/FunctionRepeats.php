@@ -11,13 +11,14 @@ class FunctionRepeats implements RuleInterface
     
     public function apply(Node $node)
     {
+        $this->cleanError();
         if ($node instanceof Node\Stmt\Function_) {
             $message = $this->checkFunctionRepeats($node->name);
             if (isset($message)) {
-                //eval(\Psy\sh());
                 $this->setError($message, $node->name);
             }
         }
+        return $this;
     }
     
     private function setError($message, $name)
